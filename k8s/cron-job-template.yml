@@ -1,0 +1,37 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: tectonic-etcd-snapshot
+  namespace: kube-system
+spec:
+  schedule: "5 */1 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodeSelector:
+            node-role.kubernetes.io/master: ''
+          restartPolicy: Never
+          containers:
+          - name: etcd-snapshot
+            image: quay.io/bshelton229/tectonic-etcd-snapshot
+            imagePullPolicy: Always
+            env:
+            - name: S3_BUCKET
+              value: my-org-tectonic-etcd-snapshots
+            - name: S3_PREFIX
+              value: cluster-name
+            - name: ETCDCTL_ENDPOINTS
+              value: "https://cluster-name-etcd-0.cluster-domain.com:2379"
+            volumeMounts:
+            - name: secrets
+              readOnly: true
+              mountPath: /etc/kubernetes/secrets
+          tolerations:
+            - key: node-role.kubernetes.io/master
+              operator: Exists
+              effect: NoSchedule
+          volumes:
+          - name: secrets
+            secret:
+              secretName: kube-apiserver
