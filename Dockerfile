@@ -2,7 +2,7 @@ FROM quay.io/coreos/etcd:v3.3
 
 RUN apk add --update \
         py-pip \
-		bash \
+        bash \
     && pip install \
         awscli \
     && rm -rf /var/cache/apk/*
