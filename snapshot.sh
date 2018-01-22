@@ -28,6 +28,7 @@ fi
 trap "rm -f $BACKUP_FILE" EXIT
 
 /usr/local/bin/etcdctl snapshot save $BACKUP_FILE
+/usr/local/bin/etcdctl snapshot status $BACKUP_FILE
 
 echo "Uploading to $S3_PATH"
 /usr/bin/aws s3 cp $S3_CP_OPTS $BACKUP_FILE $S3_PATH
