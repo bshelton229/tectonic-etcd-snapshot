@@ -1,6 +1,6 @@
-IMAGE_NAME ?= quay.io/bshelton229/tectonic-etcd-snapshot
-IMAGE_TAG ?= latest
-IMAGE = $(IMAGE_NAME):$(IMAGE_TAG)
+IMAGE_REPOSITORY ?= quay.io/bshelton229/tectonic-etcd-snapshot
+IMAGE_TAG ?= dev
+IMAGE = $(IMAGE_REPOSITORY):$(IMAGE_TAG)
 
 build:
 	docker build -t $(IMAGE) .
