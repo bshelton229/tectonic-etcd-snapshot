@@ -7,3 +7,6 @@ build:
 
 push: build
 	docker push $(IMAGE)
+
+shell: build
+	docker run --rm -it $(IMAGE) bash

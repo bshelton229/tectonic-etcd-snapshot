@@ -11,7 +11,8 @@ containing the tls keys you need to connect to your etcd cluster. See
 ### ETCDCTL_ENDPOINTS
 
 This is standard to the etcdctl cli tool for api version 3. This will need to
-match your etcd dns name for your kubernetes cluster.
+match your etcd endpoint for your cluster. See help section of the etcdctl tool
+for more information.
 
 ### S3_BUCKET
 
